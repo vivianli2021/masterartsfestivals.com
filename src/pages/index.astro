@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+const images = [
+  '/photos/IMG_0047.jpg',
+  '/photos/IMG_6498.jpg',
+  '/photos/IMG_6667.jpg',
+  '/photos/IMG_6927.jpg',
+  '/photos/IMG_6929.jpg',
+  '/photos/IMG_6930.jpg',
+  '/photos/IMG_6932.jpg',
+  '/photos/IMG_6933.jpg',
+  '/photos/IMG_6934.jpg',
+  '/photos/IMG_6936.jpg'
+]
+---
+<BaseLayout title="Home">
+  <section class="hero">
+    <div>
+      <span class="kicker">Awesome Rocket Team</span>
+      <h1>Master Arts Festival</h1>
+      <p class="hero-card">We design, build, and launch high-powered rockets. Follow our season, meet the team, and support us through sponsorships.
+      <div class="hero-actions">
+        <a class="btn" href="/sponsors">Sponsor the Team</a>
+        <a class="btn secondary" href="/team">Meet the Team</a>
+      </div>
+      </p>
+    </div>
+    <div class="hero-card">
+      <h2>Season Highlights</h2>
+      <ul>
+        <li>New composite airframe in development</li>
+        <li>Static fire scheduled this fall</li>
+        <li>Competition launch in spring</li>
+      </ul>
+    </div>
+  </section>
+  <section class="section">
+    <h2>Photos</h2>
+    <div class="gallery">
+      {images.map((src) => (
+        <img src={src} alt="team photo" />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
