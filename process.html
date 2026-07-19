@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Process — MasterArtsFestivals Rocketry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .phase {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .phase:last-child { border-bottom: none; }
+
+    .phase-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: rgba(31,107,102,0.28);
+      line-height: 1;
+      padding-top: 0.25rem;
+    }
+
+    .phase-body h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-body p {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    .phase-body .tags { margin-top: 1rem; }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .tool-card {
+      background: color-mix(in srgb, var(--surface) 90%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tool-card h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-card p {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 768px) {
+      .phase { grid-template-columns: 1fr; gap: 0.5rem; }
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="rocket.html">Rocket</a></li>
+      <li><a href="process.html" class="active">Process</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">How We Build</p>
+    <h1 class="page-title">From CAD to<br>Launch Pad</h1>
+    <p class="page-sub">Our build cycle is methodical and iterative — every phase feeds into the next, and every flight feeds back into the design.</p>
+  </div>
+
+  <div class="content">
+
+    <p class="section-label">Build Phases</p>
+    <h2 class="section-title">The Cycle</h2>
+
+    <div class="phase">
+      <div class="phase-num">01</div>
+      <div class="phase-body">
+        <h3>Design &amp; Simulate</h3>
+        <p>We model the rocket in parametric CAD — adjusting nose cone profile, fin geometry, and body diameter until the simulation looks right. OpenRocket is our primary tool for predicting altitude, stability margin, and flight time. We iterate digitally until the numbers hit the ARC window before printing a single gram.</p>
+        <div class="tags">
+          <span class="tag tag-sand">OpenRocket</span>
+          <span class="tag tag-mid">Parametric CAD</span>
+          <span class="tag tag-cream">Stability Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">02</div>
+      <div class="phase-body">
+        <h3>Slice &amp; Print</h3>
+        <p>Components are sliced with careful attention to wall count, infill pattern, and layer orientation relative to load paths. The body tube, fins, nose cone, and motor mount are all printed in-house on FDM printers. We weigh every print against our mass budget and re-slice if needed.</p>
+        <div class="tags">
+          <span class="tag tag-sand">FDM Printing</span>
+          <span class="tag tag-mid">PETG / PLA</span>
+          <span class="tag tag-cream">Mass Budget</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">03</div>
+      <div class="phase-body">
+        <h3>Assemble &amp; Bond</h3>
+        <p>Components are assembled using structural epoxy — fins are through-the-wall mounted into slots printed directly into the body tube. We verify CG and CP location physically with a balance point check, and compare against the simulated values before any motor is loaded.</p>
+        <div class="tags">
+          <span class="tag tag-sand">Structural Epoxy</span>
+          <span class="tag tag-mid">CG/CP Verification</span>
+          <span class="tag tag-cream">TTW Fins</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">04</div>
+      <div class="phase-body">
+        <h3>Ground Test</h3>
+        <p>Before flight day, we run through a full pre-launch checklist: parachute packing and ejection charge sizing, motor retention confirmation, and a final mass measurement. Everything is documented so we can trace any anomaly back to a specific build decision.</p>
+        <div class="tags">
+          <span class="tag tag-sand">Pre-Launch Checklist</span>
+          <span class="tag tag-mid">Ejection Sizing</span>
+          <span class="tag tag-cream">Motor Retention</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">05</div>
+      <div class="phase-body">
+        <h3>Launch &amp; Debrief</h3>
+        <p>On launch day, we follow range safety procedures and record every flight with a timer and altitude tracker when available. After recovery, the team debriefs: what matched the simulation, what didn't, and what changes go into the next iteration. Every flight is data.</p>
+        <div class="tags">
+          <span class="tag tag-sand">Flight Data</span>
+          <span class="tag tag-mid">Debrief</span>
+          <span class="tag tag-cream">Iteration</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" style="margin: 3rem 0;" />
+
+    <p class="section-label">Our Toolkit</p>
+    <h2 class="section-title">Tools We Use</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <h4>OpenRocket</h4>
+        <p>Primary simulation environment. Used for altitude prediction, stability margin analysis, and ejection delay calculation.</p>
+      </div>
+      <div class="tool-card">
+        <h4>CAD Software</h4>
+        <p>Parametric modeling for all printed components. Geometry changes propagate instantly across the full assembly.</p>
+      </div>
+      <div class="tool-card">
+        <h4>FDM Slicer</h4>
+        <p>Controls infill density, wall count, and layer height — the levers that determine part strength and mass.</p>
+      </div>
+      <div class="tool-card">
+        <h4>FDM Printer</h4>
+        <p>All airframe components are printed in-house, giving us complete control over geometry and material choice.</p>
+      </div>
+      <div class="tool-card">
+        <h4>Structural Epoxy</h4>
+        <p>Used for all permanent bonds — fins to body tube, motor mount to airframe, and nose cone retention.</p>
+      </div>
+      <div class="tool-card">
+        <h4>Digital Scale</h4>
+        <p>Every component is weighed against the mass budget. If a print is over, we re-slice or redesign before moving on.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><strong>MasterArtsFestivals</strong> Rocketry Team</p>
+    <a href="login.html" class="admin-login-btn">Admin Login</a>
+  </footer>
+
+</body>
+</html>

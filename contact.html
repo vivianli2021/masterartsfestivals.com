@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — MasterArtsFestivals Rocketry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: start;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .contact-info p {
+      font-size: 0.96rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .info-item:last-child { border-bottom: none; }
+
+    .info-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-label {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 0.3rem;
+    }
+
+    .info-value {
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="rocket.html">Rocket</a></li>
+      <li><a href="process.html">Process</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Get in Touch</p>
+    <h1 class="page-title">Contact Us</h1>
+    <p class="page-sub">Questions about our builds, competition performance, or the team? We'd love to hear from you.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <p>MasterArtsFestivals is a student-led rocketry team competing in the American Rocketry Challenge. Whether you're a potential sponsor, a fellow competitor, or just curious about 3D-printed rocketry, reach out.</p>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-value">Orange County, United States</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">🖨️</div>
+          <div>
+            <div class="info-label">Instagram</div>
+            <div class="info-value">@masterartsfestivals</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">masterartsfestivals@gmail.com</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <p><strong>MasterArtsFestivals</strong> Rocketry Team</p>
+    <a href="login.html" class="admin-login-btn">Admin Login</a>
+  </footer>
+
+</body>
+</html>

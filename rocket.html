@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Rocket — MasterArtsFestivals Rocketry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2.5rem;
+      font-size: 0.94rem;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .spec-table th {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-align: left;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(31,107,102,0.08);
+    }
+
+    .spec-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+      vertical-align: top;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+    }
+
+    .spec-table td:first-child {
+      color: var(--ink);
+      font-weight: 600;
+      white-space: nowrap;
+      width: 220px;
+    }
+
+    .spec-table tr:hover td {
+      background: rgba(31,107,102,0.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="rocket.html" class="active">Rocket</a></li>
+      <li><a href="process.html">Process</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">The Vehicle</p>
+    <h1 class="page-title">Rocket Specs</h1>
+    <p class="page-sub">Every component is designed for printability, optimized in simulation, and assembled by hand. Here's what makes our rocket fly.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- Specs table -->
+    <p class="section-label">Specifications</p>
+    <h2 class="section-title">By the Numbers</h2>
+
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Value / Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Airframe Material</td><td>PETG / PLA (FDM printed)</td></tr>
+        <tr><td>Nose Cone Profile</td><td>Von Kármán (low-drag subsonic)</td></tr>
+        <tr><td>Fin Configuration</td><td>3-fin trapezoidal, TTW mounted</td></tr>
+        <tr><td>Propulsion</td><td>ARC-legal composite motor</td></tr>
+        <tr><td>Recovery System</td><td>Motor-ejected parachute at apogee</td></tr>
+        <tr><td>Target Altitude</td><td>~800 ft AGL</td></tr>
+        <tr><td>Target Flight Duration</td><td>~45 seconds</td></tr>
+        <tr><td>Simulation Tool</td><td>OpenRocket</td></tr>
+        <tr><td>Competition</td><td>American Rocketry Challenge (ARC)</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <footer>
+    <p><strong>MasterArtsFestivals</strong> Rocketry Team</p>
+    <a href="login.html" class="admin-login-btn">Admin Login</a>
+  </footer>
+
+</body>
+</html>
