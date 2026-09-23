@@ -3,118 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MasterArtsFestivals Rocketry</title>
+  <title>About — MasterArtsFestivals Rocketry</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .hero {
-      min-height: 100vh;
+    .mission-flex {
+      display: block;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 2.2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .mission-copy h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+    }
+
+    .mission-copy p {
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .team-section {
+      max-width: 980px;
+      margin: 3.2rem auto 0;
+    }
+
+    .team-grid {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    .team-card {
+      flex: 1 1 220px;
+      min-width: 220px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 1.4rem;
+    }
+
+    .member-photo {
+      height: 190px;
+      border-radius: 14px;
+      border: 1px dashed var(--line);
+      background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
+      display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(to bottom, rgba(16,64,96,0.22) 0%, rgba(16,64,96,0.34) 42%, rgba(16,64,96,0.56) 100%),
-        url('rocket.webp') no-repeat center top / cover;
-    }
-
-    .hero > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(620px 320px at 12% 12%, rgba(47,143,208,0.16), transparent 75%),
-        radial-gradient(500px 280px at 88% 25%, rgba(135,197,238,0.18), transparent 75%),
-        radial-gradient(740px 300px at 50% 42%, rgba(8,34,56,0.42), transparent 78%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(72vw, 460px);
-      height: 360px;
-      background: radial-gradient(ellipse at center, rgba(47,143,208,0.24) 0%, transparent 72%);
-      pointer-events: none;
-    }
-
-    .eyebrow {
       font-family: 'Sora', sans-serif;
       font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: #d7ecff;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--ink-soft);
       margin-bottom: 1rem;
-      animation: fadeUp 0.8s 0.4s both;
-      text-shadow: 0 4px 14px rgba(5, 22, 37, 0.5);
     }
 
-    .hero h1 {
+    .team-card h3 {
       font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2.2rem, 6vw, 5rem);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
+      font-size: 0.95rem;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .team-role {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      animation: fadeUp 0.8s 0.6s both;
-      color: #f4faff;
-      text-shadow: 0 8px 24px rgba(5, 22, 37, 0.56);
+      color: var(--clay);
+      margin-bottom: 0.75rem;
     }
 
-    .hero h1 .accent { color: var(--clay); }
-
-    .hero-sub {
-      margin-top: 1.4rem;
-      color: #e7f2fc;
-      font-size: 1.06rem;
-      max-width: 560px;
-      line-height: 1.75;
-      animation: fadeUp 0.8s 0.8s both;
-      text-shadow: 0 4px 14px rgba(5, 22, 37, 0.52);
+    .team-card p {
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-size: 0.92rem;
     }
 
-    .hero-cta {
-      margin-top: 2.5rem;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeUp 0.8s 1s both;
-    }
-
-    .hero-cta .btn {
-      background: #2f9fe2;
-      color: #ffffff;
-      border-color: #2f9fe2;
-      box-shadow: 0 12px 24px rgba(47,159,226,0.28);
-    }
-
-    .hero-cta .btn:hover {
-      background: #268cc9;
-      border-color: #268cc9;
-      box-shadow: 0 16px 28px rgba(38,140,201,0.32);
-    }
-
-    @media (max-width: 560px) {
-      .hero {
-        min-height: 88vh;
-        padding: 8.7rem 1.2rem 3rem;
+    @media (max-width: 760px) {
+      .mission-flex {
+        padding: 1.5rem;
       }
 
-      .hero-cta {
-        width: 100%;
+      .team-card {
+        flex-basis: 100%;
       }
     }
   </style>
@@ -124,42 +107,88 @@
   <nav>
     <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
     <ul>
-      <li><a href="about.html">About</a></li>
-      <li><a href="rocket.html">Rocket</a></li>
-      <li><a href="process.html">Process</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="hero">
-    <p class="eyebrow">ARC Competition Team</p>
-    <h1>Master<br><span class="accent">Arts</span>Festivals</h1>
-    <p class="hero-sub">A student rocketry team designing and launching 3D-printed rockets in the American Rocketry Challenge — where engineering meets altitude.</p>
-    <div class="hero-cta">
-      <a href="about.html" class="btn btn-primary">Our Mission</a>
-      <a href="rocket.html" class="btn btn-ghost">The Rocket</a>
-    </div>
+  <div class="page-header">
+    <p class="page-eyebrow">Who We Are</p>
+    <h1 class="page-title">Built to Launch</h1>
+    <p class="page-sub">MasterArtsFestivals is a student rocketry team competing in the American Rocketry Challenge — designing, simulating, and launching fully 3D-printed rockets.</p>
   </div>
 
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat-item">
-        <div class="stat-num">ARC</div>
-        <div class="stat-label">Competition League</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">3D<span>P</span></div>
-        <div class="stat-label">Printed Airframe</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">~800<span>ft</span></div>
-        <div class="stat-label">Target Altitude</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">45<span>s</span></div>
-        <div class="stat-label">Target Flight Time</div>
+  <div class="content">
+    <div class="mission-flex">
+      <div class="mission-copy">
+        <h2>Our Mission</h2>
+        <p>MasterArtsFestivals designs, simulates, and launches fully 3D-printed rockets for the American Rocketry Challenge. We blend engineering discipline with fast iteration: every launch gives us data, every data point sharpens the next build.</p>
+        <p>From CAD to launch pad, we focus on clean design, reliable recovery, and teamwork under pressure. Our goal is simple: build smarter rockets and fly them better every cycle.</p>
       </div>
     </div>
+
+    <section class="team-section">
+      <p class="section-label">Our Team</p>
+      <h2 class="section-title">Meet the Crew</h2>
+
+      <div class="team-grid">
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+
+        <article class="team-card">
+          <div class="member-photo">Add photo</div>
+          <h3>Member Name</h3>
+          <div class="team-role">Role / Position</div>
+          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+        </article>
+      </div>
+    </section>
+
   </div>
 
   <footer>
