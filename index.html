@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — MasterArtsFestivals Rocketry</title>
+    <title>MasterArtsFestivals Rocketry</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -67,6 +68,15 @@
       text-transform: uppercase;
       color: var(--ink-soft);
       margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .member-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .team-card h3 {
@@ -107,13 +117,16 @@
   <nav>
     <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
     <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="sponsorship.html">Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
   <div class="page-header">
-    <p class="page-eyebrow">Who We Are</p>
-    <h1 class="page-title">Built to Launch</h1>
+   
+    <h1 class="page-title">Master<span>ArtsFestivals</span></h1>
     <p class="page-sub">MasterArtsFestivals is a student rocketry team competing in the American Rocketry Challenge — designing, simulating, and launching fully 3D-printed rockets.</p>
   </div>
 
@@ -132,7 +145,7 @@
 
       <div class="team-grid">
         <article class="team-card">
-          <div class="member-photo">Add photo</div>
+          <div class="member-photo"><img src="Screenshot 2026-09-14 at 6.16.46 PM.png" alt="Team member" /></div>
           <h3>Member Name</h3>
           <div class="team-role">Role / Position</div>
           <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
