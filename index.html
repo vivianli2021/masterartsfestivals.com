@@ -3,50 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — MasterArtsFestivals Rocketry</title>
-    <title>MasterArtsFestivals Rocketry</title>
+  <title>MasterArtsFestival — NASA SLI Rocketry</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .mission-flex {
-      display: block;
-      background: color-mix(in srgb, var(--surface) 92%, transparent);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 2.2rem;
-      max-width: 900px;
+    .team-section {
+      max-width: 980px;
       margin: 0 auto;
     }
 
-    .mission-copy h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.03em;
-      color: var(--ink);
-      margin-bottom: 0.9rem;
-    }
-
-    .mission-copy p {
-      color: var(--ink-soft);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-
-    .team-section {
-      max-width: 980px;
-      margin: 3.2rem auto 0;
-    }
-
     .team-grid {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1.2rem;
     }
 
     .team-card {
-      flex: 1 1 220px;
-      min-width: 220px;
+      min-width: 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent);
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -79,6 +52,30 @@
       object-position: center;
     }
 
+    .member-photo.zoomed img {
+      transform: scale(1.2);
+      object-position: center 22%;
+    }
+
+    .home-logo {
+      width: clamp(150px, 23vw, 280px);
+      aspect-ratio: 1;
+      margin-bottom: 1.2rem;
+      border-radius: 50%;
+      box-shadow: 0 10px 24px rgba(5, 22, 37, 0.38);
+      overflow: hidden;
+    }
+
+    .home-logo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.3);
+    }
+
+    .home-header { background-size: 120% auto; }
+
     .team-card h3 {
       font-family: 'Sora', sans-serif;
       font-size: 0.95rem;
@@ -102,13 +99,6 @@
     }
 
     @media (max-width: 760px) {
-      .mission-flex {
-        padding: 1.5rem;
-      }
-
-      .team-card {
-        flex-basis: 100%;
-      }
     }
   </style>
 </head>
@@ -118,94 +108,87 @@
     <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="photos.html">Photos</a></li>
       <li><a href="sponsorship.html">Sponsors</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="page-header">
+  <div class="page-header home-header">
    
+    <div class="home-logo"><img src="Logo.png" alt="MasterArtsFestivals logo" /></div>
     <h1 class="page-title">Master<span>ArtsFestivals</span></h1>
-    <p class="page-sub">MasterArtsFestivals is a student rocketry team competing in the American Rocketry Challenge — designing, simulating, and launching fully 3D-printed rockets.</p>
+    <p class="page-sub">MasterArtsFestivals is a student rocketry team preparing for the NASA Student Launch Initiative, where we design, test, and fly high-powered rockets.</p>
   </div>
 
   <div class="content">
-    <div class="mission-flex">
-      <div class="mission-copy">
-        <h2>Our Mission</h2>
-        <p>MasterArtsFestivals designs, simulates, and launches fully 3D-printed rockets for the American Rocketry Challenge. We blend engineering discipline with fast iteration: every launch gives us data, every data point sharpens the next build.</p>
-        <p>From CAD to launch pad, we focus on clean design, reliable recovery, and teamwork under pressure. Our goal is simple: build smarter rockets and fly them better every cycle.</p>
-      </div>
-    </div>
-
     <section class="team-section">
       <p class="section-label">Our Team</p>
       <h2 class="section-title">Meet the Crew</h2>
 
       <div class="team-grid">
         <article class="team-card">
-          <div class="member-photo"><img src="Screenshot 2026-09-14 at 6.16.46 PM.png" alt="Team member" /></div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <div class="member-photo">Add photo</div>
+          <h3>Zion Qu</h3>
+          <div class="team-role">Team Lead</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
 
         <article class="team-card">
           <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <h3>Summer Zhang</h3>
+          <div class="team-role">Co-Team Lead</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
+        </article>
+        
+        <article class="team-card">
+          <div class="member-photo"><img src="Alison.png" alt="Alison Wang" /></div>
+          <h3>Alison Wang</h3>
+          <div class="team-role">Safety Officer</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
 
         <article class="team-card">
           <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <h3>Lucas Chen</h3>
+          <div class="team-role">Logistics</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
 
         <article class="team-card">
           <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <h3>Rachel Ma</h3>
+          <div class="team-role">Logistics</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
 
         <article class="team-card">
-          <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <div class="member-photo zoomed"><img src="Vivian.jpeg" alt="Vivian Li" /></div>
+          <h3>Vivian Li</h3>
+          <div class="team-role">Outreach</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
+
+        
 
         <article class="team-card">
           <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
+          <h3>Kyle Arnold</h3>
+          <div class="team-role">Outreach</div>
+          <p>Write a short bio about this teammate and their contribution to our NASA SLI rocket.</p>
         </article>
 
-        <article class="team-card">
-          <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
-        </article>
+       
 
-        <article class="team-card">
-          <div class="member-photo">Add photo</div>
-          <h3>Member Name</h3>
-          <div class="team-role">Role / Position</div>
-          <p>Write a short bio here about this teammate, their background, and what they contribute to the team.</p>
-        </article>
+   
       </div>
     </section>
 
   </div>
 
   <footer>
-    <p><strong>MasterArtsFestivals</strong> Rocketry Team</p>
+    <p><strong>MasterArtsFestivals</strong> NASA SLI Rocketry Team</p>
     <a href="login.html" class="admin-login-btn">Admin Login</a>
   </footer>
 
