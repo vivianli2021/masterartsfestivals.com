@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About NASA SLI — MasterArtsFestivals Rocketry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg-soft);
+      box-shadow: var(--shadow);
+    }
 
+    .about-section h2 {
+      margin-bottom: 1rem;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      text-transform: uppercase;
+    }
+
+    .about-section p {
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    .about-section p + p { margin-top: 1rem; }
+
+    @media (max-width: 760px) {
+      .about-section { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="sponsorship.html">Sponsors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header subpage-header">
+    <h1 class="page-title">About<span>NASA SLI</span></h1>
+  </header>
+
+  <main class="content">
+    <section class="about-section">
+      <p class="section-label">NASA Student Launch Initiative</p>
+      <h2>What Is NASA SLI?</h2>
+      <p>The NASA Student Launch Initiative (SLI) is a hands-on engineering challenge where students design, build, test, and fly high-powered rockets.</p>
+      <p>Teams use a structured design process to develop a complete flight system, including the rocket, payload, recovery system, and launch operations. The program gives students real experience in engineering, safety, testing, and teamwork.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>MasterArtsFestivals</strong> NASA SLI Rocketry Team</p>
+    <a href="login.html" class="admin-login-btn">Admin Login</a>
+  </footer>
+
+</body>
+</html>
