@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sponsorship — MasterArtsFestivals NASA SLI Rocketry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .sponsor-intro {
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .funding-note {
+      max-width: 1080px;
+      margin: 0 auto 3rem;
+      padding: 1.25rem 1.5rem;
+      border-left: 5px solid var(--teal);
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .tier-grid {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .tier-card {
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--tier);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      box-shadow: var(--shadow);
+    }
+
+    .tier-card.diamond { --tier: #4f7191; grid-column: span 2; }
+    .tier-card.platinum { --tier: #4a94c9; }
+    .tier-card.gold { --tier: #bf8e29; }
+    .tier-card.silver { --tier: #758391; }
+    .tier-card.bronze { --tier: #ad714b; }
+
+    .tier-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tier-heading h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+    }
+
+    .tier-amount {
+      flex-shrink: 0;
+      color: var(--tier);
+      font-family: 'Sora', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .tier-card > p {
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .benefit-list {
+      margin-top: 1rem;
+      padding-left: 1.15rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .benefit-list li + li { margin-top: 0.55rem; }
+
+    .outreach-section {
+      max-width: 900px;
+      margin: 4rem auto 0;
+    }
+
+    .outreach-copy {
+      padding: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      box-shadow: var(--shadow);
+    }
+
+    .outreach-copy h2 {
+      margin-bottom: 1rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+    }
+
+    .outreach-copy p {
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    .outreach-copy p + p { margin-top: 1rem; }
+
+    .sponsor-cta {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 2.4rem 2rem;
+      background: var(--teal-deep);
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .sponsor-cta h2 {
+      margin-bottom: 0.7rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+    }
+
+    .sponsor-cta p {
+      margin-bottom: 1.3rem;
+      color: #e5f1fb;
+      line-height: 1.7;
+    }
+
+    .sponsor-cta .btn-primary {
+      background: #ffffff;
+      color: var(--teal-deep);
+      box-shadow: none;
+    }
+
+    @media (max-width: 760px) {
+      .tier-grid { grid-template-columns: 1fr; }
+      .tier-card.diamond { grid-column: span 1; }
+      .tier-heading { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+      .outreach-copy { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="sponsorship.html" class="active">Sponsors</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header subpage-header">
+    <h1 class="page-title">Partner<span>With Us</span></h1>
+  </header>
+
+  <main class="content">
+
+    <p class="funding-note">Sponsorship directly supports rocket materials, manufacturing, motors, testing, travel, and educational outreach activities.</p>
+
+    <section class="tier-grid" aria-label="Sponsorship tiers">
+      <article class="tier-card diamond">
+        <div class="tier-heading">
+          <h2>Diamond</h2>
+          <p class="tier-amount">$5,000+</p>
+        </div>
+        <p>Our highest level of visibility and integration into the team.</p>
+        <ul class="benefit-list">
+          <li>"Presented by [Company]" on team materials, our website, shirts, and social media.</li>
+          <li>Featured across social media posts, flyers, outreach events, and the website homepage.</li>
+          <li>Largest logo placement and prominent brand name on the rocket.</li>
+          <li>Logo and name on the back of official team shirts worn at every event.</li>
+          <li>Opportunity for employee representatives to speak at an outreach event.</li>
+          <li>Opportunity to distribute flyers at community outreach events.</li>
+        </ul>
+      </article>
+
+      <article class="tier-card platinum">
+        <div class="tier-heading">
+          <h2>Platinum</h2>
+          <p class="tier-amount">$2,500-$5,000</p>
+        </div>
+        <p>High visibility and strong integration into our NASA SLI journey.</p>
+        <ul class="benefit-list">
+          <li>Featured on social media, flyers, outreach events, and the website homepage.</li>
+          <li>Primary logo placement and brand name on the rocket.</li>
+          <li>Logo and brand name on the back of official team shirts.</li>
+          <li>Opportunity to distribute flyers at community outreach events.</li>
+        </ul>
+      </article>
+
+      <article class="tier-card gold">
+        <div class="tier-heading">
+          <h2>Gold</h2>
+          <p class="tier-amount">$1,500-$2,500</p>
+        </div>
+        <ul class="benefit-list">
+          <li>Logo placed on the rocket and on the back of official team shirts.</li>
+          <li>Special recognition on our website and social media.</li>
+          <li>Opportunity to distribute flyers at community outreach events.</li>
+        </ul>
+      </article>
+
+      <article class="tier-card silver">
+        <div class="tier-heading">
+          <h2>Silver</h2>
+          <p class="tier-amount">$500-$1,500</p>
+        </div>
+        <ul class="benefit-list">
+          <li>Logo placed on the back of team shirts worn at events and launches.</li>
+          <li>Special recognition on our website and social media.</li>
+          <li>Opportunity to distribute flyers at community outreach events.</li>
+        </ul>
+      </article>
+
+      <article class="tier-card bronze">
+        <div class="tier-heading">
+          <h2>Bronze</h2>
+          <p class="tier-amount">$250-$500</p>
+        </div>
+        <ul class="benefit-list">
+          <li>Special recognition on our website and social media.</li>
+          <li>Opportunity to distribute flyers at community outreach events.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="sponsor-cta">
+      <h2>Become a Sponsor</h2>
+      <p>Interested in supporting MasterArtsFestivals and our NASA SLI mission?</p>
+      <a class="btn btn-primary" href="contact.html">Contact the Team</a>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>MasterArtsFestivals</strong> NASA SLI Rocketry Team</p>
+    <a href="login.html" class="admin-login-btn">Admin Login</a>
+  </footer>
+
+</body>
+</html>
