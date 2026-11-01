@@ -25,6 +25,75 @@
       color: var(--ink-soft);
       line-height: 1.8;
     }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .gallery-item {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      box-shadow: var(--shadow);
+      cursor: zoom-in;
+      transition: transform 0.25s;
+    }
+
+    .gallery-item:hover { transform: translateY(-4px); }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .gallery-item figcaption {
+      padding: 0.8rem 1rem;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .gallery-item figcaption small {
+      display: block;
+      margin-top: 0.15rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      padding: 2rem;
+      background: rgba(10, 34, 52, 0.92);
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(100vh - 7rem);
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .lightbox p { color: #e5f1fb; text-align: center; }
   </style>
 </head>
 <body>
@@ -46,16 +115,87 @@
   </header>
 
   <main class="content">
-    <section class="gallery-empty">
+    <section class="gallery-grid" id="gallery" aria-label="Team photos"></section>
+
+    <section class="gallery-empty" id="gallery-empty">
       <h2>Photos Coming Soon</h2>
       <p>Our gallery is currently empty. Check back soon for photos from our NASA SLI builds, tests, and launch days.</p>
     </section>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <img alt="" />
+      <p></p>
+    </div>
   </main>
 
   <footer>
     <p><strong>MasterArtsFestivals</strong> NASA SLI Rocketry Team</p>
     <a href="login.html" class="admin-login-btn">Admin Login</a>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    const gallery = document.getElementById('gallery');
+    const emptyState = document.getElementById('gallery-empty');
+    const lightbox = document.getElementById('lightbox');
+
+    function openLightbox(src, text) {
+      lightbox.querySelector('img').src = src;
+      lightbox.querySelector('p').textContent = text;
+      lightbox.classList.add('open');
+    }
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+    async function loadPhotos() {
+      if (!db) return; // Supabase not set up yet: keep "Photos Coming Soon"
+
+      const { data: photos, error } = await db
+        .from('photos')
+        .select('path, caption, taken_on')
+        .order('taken_on', { ascending: false, nullsFirst: false })
+        .order('created_at', { ascending: false });
+
+      if (error) { console.error('Could not load photos:', error); return; }
+      if (!photos.length) return;
+
+      emptyState.hidden = true;
+      photos.forEach(photo => {
+        const src = photoUrl(photo.path);
+        const date = formatDate(photo.taken_on);
+
+        const item = document.createElement('figure');
+        item.className = 'gallery-item';
+        item.tabIndex = 0;
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = photo.caption || 'Team photo';
+        img.loading = 'lazy';
+        item.appendChild(img);
+
+        if (photo.caption || date) {
+          const caption = document.createElement('figcaption');
+          caption.textContent = photo.caption || '';
+          if (date) {
+            const small = document.createElement('small');
+            small.textContent = date;
+            caption.appendChild(small);
+          }
+          item.appendChild(caption);
+        }
+
+        const open = () => openLightbox(src, [photo.caption, date].filter(Boolean).join(' \u00b7 '));
+        item.addEventListener('click', open);
+        item.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+        gallery.appendChild(item);
+      });
+    }
+
+    loadPhotos();
+  </script>
 
 </body>
 </html>

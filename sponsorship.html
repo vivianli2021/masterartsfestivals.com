@@ -26,65 +26,119 @@
       line-height: 1.7;
     }
 
-    .tier-grid {
+    .tier-table-wrap {
       max-width: 1080px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .tier-card {
-      padding: 1.6rem;
+      overflow-x: auto;
       border: 1px solid var(--line);
-      border-top: 6px solid var(--tier);
-      border-radius: 8px;
+      border-radius: 12px;
       background: color-mix(in srgb, var(--surface) 92%, transparent);
       box-shadow: var(--shadow);
     }
 
-    .tier-card.diamond { --tier: #4f7191; grid-column: span 2; }
-    .tier-card.platinum { --tier: #4a94c9; }
-    .tier-card.gold { --tier: #bf8e29; }
-    .tier-card.silver { --tier: #758391; }
-    .tier-card.bronze { --tier: #ad714b; }
-
-    .tier-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
+    .tier-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
     }
 
-    .tier-heading h2 {
+    .tier-table th,
+    .tier-table td {
+      padding: 1rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .tier-table tbody tr:last-child td,
+    .tier-table tbody tr:last-child th { border-bottom: none; }
+
+    .tier-table tbody tr:nth-child(even) > * { background: #e3f1fc; }
+
+    .tier-table .benefit {
+      text-align: left;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.5;
+      width: 34%;
+      position: sticky;
+      left: 0;
+      background: var(--surface);
+    }
+
+    .tier-table thead th {
+      border-top: 6px solid var(--tier, transparent);
+      background: var(--surface);
+    }
+
+    .tier-table thead th.benefit {
       font-family: 'Sora', sans-serif;
-      font-size: 1.15rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: var(--clay);
+      font-weight: 600;
+    }
+
+    .tier-name {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--ink);
     }
 
     .tier-amount {
-      flex-shrink: 0;
-      color: var(--tier);
+      display: block;
+      margin-top: 0.3rem;
       font-family: 'Sora', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       font-weight: 700;
+      color: var(--tier);
+      white-space: nowrap;
+    }
+
+    .bronze   { --tier: #ad714b; }
+    .silver   { --tier: #758391; }
+    .gold     { --tier: #bf8e29; }
+    .platinum { --tier: #4a94c9; }
+    .diamond  { --tier: #4f7191; }
+
+    .yes {
+      display: inline-grid;
+      place-items: center;
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .no { color: rgba(23, 56, 79, 0.3); font-size: 1.1rem; }
+
+    .level {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #ffffff;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 600;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .tier-card > p {
+    .swipe-hint {
+      display: none;
+      max-width: 1080px;
+      margin: 0 auto 0.6rem;
       color: var(--ink-soft);
-      line-height: 1.7;
+      font-size: 0.82rem;
+      text-align: right;
     }
-
-    .benefit-list {
-      margin-top: 1rem;
-      padding-left: 1.15rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-    }
-
-    .benefit-list li + li { margin-top: 0.55rem; }
 
     .outreach-section {
       max-width: 900px;
@@ -142,9 +196,8 @@
     }
 
     @media (max-width: 760px) {
-      .tier-grid { grid-template-columns: 1fr; }
-      .tier-card.diamond { grid-column: span 1; }
-      .tier-heading { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+      .swipe-hint { display: block; }
+      .tier-table .benefit { width: 220px; min-width: 220px; }
       .outreach-copy { padding: 1.5rem; }
     }
   </style>
@@ -170,72 +223,79 @@
 
     <p class="funding-note">Sponsorship directly supports rocket materials, manufacturing, motors, testing, travel, and educational outreach activities.</p>
 
-    <section class="tier-grid" aria-label="Sponsorship tiers">
-      <article class="tier-card diamond">
-        <div class="tier-heading">
-          <h2>Diamond</h2>
-          <p class="tier-amount">$5,000+</p>
-        </div>
-        <p>Our highest level of visibility and integration into the team.</p>
-        <ul class="benefit-list">
-          <li>"Presented by [Company]" on team materials, our website, shirts, and social media.</li>
-          <li>Featured across social media posts, flyers, outreach events, and the website homepage.</li>
-          <li>Largest logo placement and prominent brand name on the rocket.</li>
-          <li>Logo and name on the back of official team shirts worn at every event.</li>
-          <li>Opportunity for employee representatives to speak at an outreach event.</li>
-          <li>Opportunity to distribute flyers at community outreach events.</li>
-        </ul>
-      </article>
-
-      <article class="tier-card platinum">
-        <div class="tier-heading">
-          <h2>Platinum</h2>
-          <p class="tier-amount">$2,500-$5,000</p>
-        </div>
-        <p>High visibility and strong integration into our NASA SLI journey.</p>
-        <ul class="benefit-list">
-          <li>Featured on social media, flyers, outreach events, and the website homepage.</li>
-          <li>Primary logo placement and brand name on the rocket.</li>
-          <li>Logo and brand name on the back of official team shirts.</li>
-          <li>Opportunity to distribute flyers at community outreach events.</li>
-        </ul>
-      </article>
-
-      <article class="tier-card gold">
-        <div class="tier-heading">
-          <h2>Gold</h2>
-          <p class="tier-amount">$1,500-$2,500</p>
-        </div>
-        <ul class="benefit-list">
-          <li>Logo placed on the rocket and on the back of official team shirts.</li>
-          <li>Special recognition on our website and social media.</li>
-          <li>Opportunity to distribute flyers at community outreach events.</li>
-        </ul>
-      </article>
-
-      <article class="tier-card silver">
-        <div class="tier-heading">
-          <h2>Silver</h2>
-          <p class="tier-amount">$500-$1,500</p>
-        </div>
-        <ul class="benefit-list">
-          <li>Logo placed on the back of team shirts worn at events and launches.</li>
-          <li>Special recognition on our website and social media.</li>
-          <li>Opportunity to distribute flyers at community outreach events.</li>
-        </ul>
-      </article>
-
-      <article class="tier-card bronze">
-        <div class="tier-heading">
-          <h2>Bronze</h2>
-          <p class="tier-amount">$250-$500</p>
-        </div>
-        <ul class="benefit-list">
-          <li>Special recognition on our website and social media.</li>
-          <li>Opportunity to distribute flyers at community outreach events.</li>
-        </ul>
-      </article>
-    </section>
+    <p class="swipe-hint">Swipe to see all tiers &rarr;</p>
+    <div class="tier-table-wrap">
+      <table class="tier-table" aria-label="Sponsorship tiers">
+        <thead>
+          <tr>
+            <th scope="col" class="benefit">What you get</th>
+            <th scope="col" class="bronze"><span class="tier-name">Bronze</span><span class="tier-amount">$250&ndash;$500</span></th>
+            <th scope="col" class="silver"><span class="tier-name">Silver</span><span class="tier-amount">$500&ndash;$1,500</span></th>
+            <th scope="col" class="gold"><span class="tier-name">Gold</span><span class="tier-amount">$1,500&ndash;$2,500</span></th>
+            <th scope="col" class="platinum"><span class="tier-name">Platinum</span><span class="tier-amount">$2,500&ndash;$5,000</span></th>
+            <th scope="col" class="diamond"><span class="tier-name">Diamond</span><span class="tier-amount">$5,000+</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="benefit">Thank-you on our website and social media</th>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Hand out your flyers at our community outreach events</th>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Logo on the back of official team shirts</th>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Logo and brand name on the rocket</th>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="level">Primary</span></td>
+            <td><span class="level">Largest</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Featured on social media, flyers, outreach events, and our homepage</th>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Company representative can speak at an outreach event</th>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">&ldquo;Presented by [Company]&rdquo; on team materials, website, shirts, and social media</th>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <section class="sponsor-cta">
       <h2>Become a Sponsor</h2>

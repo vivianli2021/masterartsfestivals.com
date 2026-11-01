@@ -23,6 +23,8 @@
 			padding: 2rem;
 		}
 
+		.login-panel.wide { width: min(880px, 100%); }
+
 		.login-eyebrow {
 			font-family: 'Sora', sans-serif;
 			font-size: 0.64rem;
@@ -61,7 +63,7 @@
 
 		.form-group input {
 			width: 100%;
-			background: #132129;
+			background: #ffffff;
 			border: 1px solid var(--line);
 			border-radius: 12px;
 			padding: 0.72rem 0.95rem;
@@ -73,8 +75,14 @@
 		}
 
 		.form-group input:focus {
-			border-color: rgba(31,107,102,0.45);
-			box-shadow: 0 0 0 3px rgba(31,107,102,0.12);
+			border-color: rgba(31,136,200,0.55);
+			box-shadow: 0 0 0 3px rgba(31,136,200,0.15);
+		}
+
+		.form-row {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			gap: 1rem;
 		}
 
 		.login-actions {
@@ -88,6 +96,118 @@
 			flex: 1 1 170px;
 			text-align: center;
 		}
+
+		.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+		.message {
+			margin-top: 1rem;
+			padding: 0.75rem 1rem;
+			border-radius: 12px;
+			font-size: 0.9rem;
+			line-height: 1.5;
+		}
+
+		.message.error { background: rgba(201,122,74,0.14); color: #8d4a22; }
+		.message.info { background: rgba(31,136,200,0.12); color: var(--teal-deep); }
+
+		.panel-top {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.drop-zone {
+			display: block;
+			padding: 2.2rem 1rem;
+			margin-bottom: 1rem;
+			border: 2px dashed rgba(31,136,200,0.4);
+			border-radius: 16px;
+			background: rgba(255,255,255,0.55);
+			text-align: center;
+			color: var(--ink-soft);
+			cursor: pointer;
+			transition: background 0.2s, border-color 0.2s;
+		}
+
+		.drop-zone:hover,
+		.drop-zone.dragging {
+			background: #ffffff;
+			border-color: var(--teal);
+		}
+
+		.drop-zone strong {
+			display: block;
+			font-family: 'Sora', sans-serif;
+			color: var(--teal-deep);
+			margin-bottom: 0.3rem;
+		}
+
+		.drop-zone input { display: none; }
+
+		.manage-title {
+			margin: 2.2rem 0 1rem;
+			font-family: 'Sora', sans-serif;
+			font-size: 1rem;
+			text-transform: uppercase;
+			color: var(--ink);
+		}
+
+		.manage-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 0.8rem;
+		}
+
+		.manage-item {
+			position: relative;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: #ffffff;
+		}
+
+		.manage-item img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+		}
+
+		.manage-item p {
+			padding: 0.5rem 0.6rem;
+			font-size: 0.78rem;
+			color: var(--ink-soft);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.delete-btn {
+			position: absolute;
+			top: 0.4rem;
+			right: 0.4rem;
+			padding: 0.3rem 0.6rem;
+			border: none;
+			border-radius: 999px;
+			background: rgba(23,56,79,0.8);
+			color: #ffffff;
+			font-family: 'Sora', sans-serif;
+			font-size: 0.62rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+
+		.delete-btn:hover { background: #b0472a; }
+
+		[hidden] { display: none !important; }
+
+		@media (max-width: 560px) {
+			.form-row { grid-template-columns: 1fr; gap: 0; }
+			.login-panel { padding: 1.4rem; }
+		}
 	</style>
 </head>
 <body>
@@ -95,28 +215,31 @@
 	<nav>
 		<a class="nav-logo" href="index.html">Master<span>Arts</span>Festivals</a>
 		<ul>
+			<li><a href="index.html">Home</a></li>
 			<li><a href="about.html">About</a></li>
-			<li><a href="rocket.html">Rocket</a></li>
-			<li><a href="process.html">Process</a></li>
+			<li><a href="photos.html">Photos</a></li>
+			<li><a href="sponsorship.html">Sponsors</a></li>
 			<li><a href="contact.html">Contact</a></li>
 		</ul>
 	</nav>
 
 	<main class="login-wrap">
-		<section class="login-panel">
+
+		<!-- Signed out -->
+		<section class="login-panel" id="login-view">
 			<p class="login-eyebrow">Team Portal</p>
 			<h1 class="login-title">Admin Login</h1>
-			<p class="login-sub">Access internal launch logs and build notes. This page is currently a visual prototype.</p>
+			<p class="login-sub">Sign in to add photos to the gallery.</p>
 
-			<form>
+			<form id="login-form">
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input id="email" name="email" type="email" placeholder="you@example.com" />
+					<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
 				</div>
 
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input id="password" name="password" type="password" placeholder="Enter password" />
+					<input id="password" name="password" type="password" placeholder="Enter password" autocomplete="current-password" required />
 				</div>
 
 				<div class="login-actions">
@@ -124,8 +247,227 @@
 					<a class="btn btn-ghost" href="index.html">Back to Site</a>
 				</div>
 			</form>
+
+			<p class="message" id="login-message" hidden></p>
 		</section>
+
+		<!-- Signed in -->
+		<section class="login-panel wide" id="upload-view" hidden>
+			<div class="panel-top">
+				<div>
+					<p class="login-eyebrow">Team Portal</p>
+					<h1 class="login-title">Add Photos</h1>
+					<p class="login-sub">Signed in as <strong id="user-email"></strong>. Photos appear on the <a href="photos.html">Photos page</a> right away.</p>
+				</div>
+				<button class="btn btn-ghost" id="sign-out" type="button">Sign Out</button>
+			</div>
+
+			<form id="upload-form">
+				<label class="drop-zone" id="drop-zone">
+					<strong>Choose photos or drag them here</strong>
+					<span id="file-summary">JPG, PNG, or WebP. Large photos are shrunk automatically.</span>
+					<input id="files" type="file" accept="image/*" multiple />
+				</label>
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for="caption">Caption (optional)</label>
+						<input id="caption" type="text" placeholder="e.g. Subscale test launch" maxlength="120" />
+					</div>
+					<div class="form-group">
+						<label for="taken-on">Date taken (optional)</label>
+						<input id="taken-on" type="date" />
+					</div>
+				</div>
+
+				<div class="login-actions">
+					<button class="btn btn-primary" id="upload-btn" type="submit" disabled>Upload Photos</button>
+				</div>
+			</form>
+
+			<p class="message" id="upload-message" hidden></p>
+
+			<h2 class="manage-title">Gallery Photos</h2>
+			<div class="manage-grid" id="manage-grid"></div>
+			<p class="login-sub" id="manage-empty" hidden>No photos yet.</p>
+		</section>
+
 	</main>
+
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+	<script src="supabase-config.js"></script>
+	<script>
+		const loginView = document.getElementById('login-view');
+		const uploadView = document.getElementById('upload-view');
+		const fileInput = document.getElementById('files');
+		const dropZone = document.getElementById('drop-zone');
+		const uploadBtn = document.getElementById('upload-btn');
+		let selectedFiles = [];
+
+		function showMessage(id, text, type) {
+			const el = document.getElementById(id);
+			el.textContent = text;
+			el.className = `message ${type}`;
+			el.hidden = !text;
+		}
+
+		/* ---------- Sign in / out ---------- */
+
+		async function showSignedIn(user) {
+			loginView.hidden = true;
+			uploadView.hidden = false;
+			document.getElementById('user-email').textContent = user.email;
+			loadManageGrid();
+		}
+
+		function showSignedOut() {
+			uploadView.hidden = true;
+			loginView.hidden = false;
+		}
+
+		if (!db) {
+			showMessage('login-message', 'Photo uploads aren’t connected yet. Add your Supabase details to supabase-config.js (see SUPABASE_SETUP.md).', 'info');
+			document.querySelectorAll('#login-form input, #login-form button').forEach(el => el.disabled = true);
+		} else {
+			db.auth.getSession().then(({ data }) => {
+				if (data.session) showSignedIn(data.session.user);
+			});
+		}
+
+		document.getElementById('login-form').addEventListener('submit', async e => {
+			e.preventDefault();
+			showMessage('login-message', '', 'info');
+			const { data, error } = await db.auth.signInWithPassword({
+				email: document.getElementById('email').value.trim(),
+				password: document.getElementById('password').value,
+			});
+			if (error) return showMessage('login-message', 'Wrong email or password.', 'error');
+			showSignedIn(data.user);
+		});
+
+		document.getElementById('sign-out').addEventListener('click', async () => {
+			await db.auth.signOut();
+			showSignedOut();
+		});
+
+		/* ---------- Choosing files ---------- */
+
+		function setFiles(files) {
+			selectedFiles = [...files].filter(f => f.type.startsWith('image/'));
+			document.getElementById('file-summary').textContent = selectedFiles.length
+				? `${selectedFiles.length} photo${selectedFiles.length === 1 ? '' : 's'} selected`
+				: 'JPG, PNG, or WebP. Large photos are shrunk automatically.';
+			uploadBtn.disabled = !selectedFiles.length;
+		}
+
+		fileInput.addEventListener('change', () => setFiles(fileInput.files));
+		['dragenter', 'dragover'].forEach(type => dropZone.addEventListener(type, e => {
+			e.preventDefault();
+			dropZone.classList.add('dragging');
+		}));
+		['dragleave', 'drop'].forEach(type => dropZone.addEventListener(type, e => {
+			e.preventDefault();
+			dropZone.classList.remove('dragging');
+		}));
+		dropZone.addEventListener('drop', e => setFiles(e.dataTransfer.files));
+
+		// Shrink big phone photos to at most 2000px wide/tall so the gallery loads fast
+		// and stays inside Supabase's free storage. Falls back to the original file.
+		async function shrink(file) {
+			if (file.type === 'image/gif') return file;
+			try {
+				const bitmap = await createImageBitmap(file);
+				const scale = Math.min(1, 2000 / Math.max(bitmap.width, bitmap.height));
+				const canvas = document.createElement('canvas');
+				canvas.width = Math.round(bitmap.width * scale);
+				canvas.height = Math.round(bitmap.height * scale);
+				canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+				const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
+				return blob || file;
+			} catch {
+				return file;
+			}
+		}
+
+		/* ---------- Upload ---------- */
+
+		document.getElementById('upload-form').addEventListener('submit', async e => {
+			e.preventDefault();
+			const caption = document.getElementById('caption').value.trim() || null;
+			const takenOn = document.getElementById('taken-on').value || null;
+			uploadBtn.disabled = true;
+
+			let done = 0;
+			const failed = [];
+			for (const file of selectedFiles) {
+				showMessage('upload-message', `Uploading ${done + 1} of ${selectedFiles.length}…`, 'info');
+				const blob = await shrink(file);
+				const ext = blob.type === 'image/jpeg' ? 'jpg' : (file.name.split('.').pop() || 'jpg').toLowerCase();
+				const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+				const upload = await db.storage.from(PHOTO_BUCKET).upload(path, blob, { contentType: blob.type || file.type });
+				const insert = upload.error ? upload : await db.from('photos').insert({ path, caption, taken_on: takenOn });
+				if (upload.error || insert.error) {
+					console.error(upload.error || insert.error);
+					failed.push(file.name);
+				} else {
+					done++;
+				}
+			}
+
+			showMessage('upload-message',
+				failed.length
+					? `Uploaded ${done}. These didn’t upload: ${failed.join(', ')}`
+					: `Uploaded ${done} photo${done === 1 ? '' : 's'}!`,
+				failed.length ? 'error' : 'info');
+
+			fileInput.value = '';
+			setFiles([]);
+			loadManageGrid();
+		});
+
+		/* ---------- Existing photos ---------- */
+
+		async function loadManageGrid() {
+			const grid = document.getElementById('manage-grid');
+			const { data: photos, error } = await db
+				.from('photos')
+				.select('id, path, caption, taken_on')
+				.order('created_at', { ascending: false });
+			if (error) return showMessage('upload-message', 'Couldn’t load existing photos.', 'error');
+
+			grid.replaceChildren();
+			document.getElementById('manage-empty').hidden = photos.length > 0;
+
+			photos.forEach(photo => {
+				const item = document.createElement('div');
+				item.className = 'manage-item';
+
+				const img = document.createElement('img');
+				img.src = photoUrl(photo.path);
+				img.alt = photo.caption || '';
+				img.loading = 'lazy';
+
+				const label = document.createElement('p');
+				label.textContent = photo.caption || formatDate(photo.taken_on) || 'No caption';
+
+				const del = document.createElement('button');
+				del.className = 'delete-btn';
+				del.type = 'button';
+				del.textContent = 'Delete';
+				del.addEventListener('click', async () => {
+					if (!confirm('Delete this photo from the gallery?')) return;
+					await db.storage.from(PHOTO_BUCKET).remove([photo.path]);
+					const { error } = await db.from('photos').delete().eq('id', photo.id);
+					if (error) return showMessage('upload-message', 'Couldn’t delete that photo.', 'error');
+					item.remove();
+				});
+
+				item.append(img, label, del);
+				grid.appendChild(item);
+			});
+		}
+	</script>
 
 </body>
 </html>
