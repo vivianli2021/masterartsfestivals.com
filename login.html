@@ -689,7 +689,7 @@
 			loadHeadshots();
 		}
 
-		// An empty bio deletes the saved one, so the home page shows its default text again.
+		// An empty bio deletes the saved one, so the home page shows no bio.
 		async function saveBio(name, bio, button, status) {
 			button.disabled = true;
 			status.textContent = 'Saving\u2026';

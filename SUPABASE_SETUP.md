@@ -129,6 +129,5 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOi...';
 
 On the same screen, scroll to **Team Members**. Click **Change photo** under a teammate to
 replace their headshot (**Remove** goes back to the original photo), or type in their bio box and
-click **Save bio**. Changes show on the home page right away. Saving an empty bio brings back the
-default text.
+click **Save bio**. Changes show on the home page right away. Saving an empty bio removes it.
 The team list comes from `index.html`, so a new teammate added there shows up here automatically.
