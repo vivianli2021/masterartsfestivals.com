@@ -67,6 +67,29 @@ create policy "Team can remove headshots"
   on public.headshots for delete to authenticated using (true);
 ```
 
+### Team bios
+
+Run this too (in a new query) so bios can be edited from the Admin Login page:
+
+```sql
+create table public.bios (
+  name text primary key,
+  bio text not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.bios enable row level security;
+
+create policy "Anyone can view bios"
+  on public.bios for select using (true);
+create policy "Team can add bios"
+  on public.bios for insert to authenticated with check (true);
+create policy "Team can change bios"
+  on public.bios for update to authenticated using (true) with check (true);
+create policy "Team can remove bios"
+  on public.bios for delete to authenticated using (true);
+```
+
 ## 3. Lock down sign-ups
 
 So that only your team can upload:
@@ -102,8 +125,10 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOi...';
 2. Drag in photos, add an optional caption and date, and click **Upload Photos**.
 3. They show up on the Photos page right away. You can delete photos from the same screen.
 
-## Changing team headshots
+## Changing team photos and bios
 
-On the same screen, scroll to **Team Headshots** and click **Change photo** under a teammate.
-The new photo shows on the home page right away. **Remove** goes back to the original photo.
+On the same screen, scroll to **Team Members**. Click **Change photo** under a teammate to
+replace their headshot (**Remove** goes back to the original photo), or type in their bio box and
+click **Save bio**. Changes show on the home page right away. Saving an empty bio brings back the
+default text.
 The team list comes from `index.html`, so a new teammate added there shows up here automatically.

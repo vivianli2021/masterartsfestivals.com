@@ -210,7 +210,7 @@
 
 		.headshot-grid {
 			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 			gap: 0.8rem;
 		}
 
@@ -276,6 +276,35 @@
 		.small-btn:hover { border-color: var(--teal); }
 		.small-btn:disabled { opacity: 0.5; cursor: wait; }
 		.small-btn input { display: none; }
+
+		.bio-input {
+			width: 100%;
+			min-height: 96px;
+			margin-top: 0.9rem;
+			padding: 0.6rem 0.75rem;
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			background: var(--surface);
+			color: var(--ink);
+			font-family: 'Manrope', sans-serif;
+			font-size: 0.85rem;
+			line-height: 1.5;
+			text-align: left;
+			resize: vertical;
+			outline: none;
+		}
+
+		.bio-input:focus {
+			border-color: rgba(31,136,200,0.55);
+			box-shadow: 0 0 0 3px rgba(31,136,200,0.15);
+		}
+
+		.bio-status {
+			min-height: 1.1em;
+			margin-top: 0.35rem;
+			font-size: 0.75rem;
+			color: var(--ink-soft);
+		}
 
 		[hidden] { display: none !important; }
 
@@ -366,8 +395,8 @@
 			<div class="manage-grid" id="manage-grid"></div>
 			<p class="login-sub" id="manage-empty" hidden>No photos yet.</p>
 
-			<h2 class="manage-title">Team Headshots</h2>
-			<p class="manage-sub">These show on the home page under &ldquo;Meet the Crew.&rdquo;</p>
+			<h2 class="manage-title">Team Members</h2>
+			<p class="manage-sub">Photos and bios show on the home page under &ldquo;Meet the Crew.&rdquo;</p>
 			<p class="message" id="headshot-message" hidden></p>
 			<div class="headshot-grid" id="headshot-grid"></div>
 		</section>
@@ -554,15 +583,18 @@
 		// The team list comes from the home page, so adding someone there adds them here.
 		async function loadHeadshots() {
 			const grid = document.getElementById('headshot-grid');
-			const [page, result] = await Promise.all([
+			const [page, result, bioResult] = await Promise.all([
 				fetch('index.html').then(r => r.text()),
 				db.from('headshots').select('name, path'),
+				db.from('bios').select('name, bio'),
 			]);
 			if (result.error) {
 				return showMessage('headshot-message', 'Headshots aren\u2019t set up in Supabase yet. Run the headshot SQL in SUPABASE_SETUP.md.', 'error');
 			}
 
 			const saved = Object.fromEntries(result.data.map(h => [h.name, h.path]));
+			const bios = bioResult.error ? null : Object.fromEntries(bioResult.data.map(b => [b.name, b.bio]));
+			if (!bios) showMessage('headshot-message', 'Bios aren\u2019t set up in Supabase yet. Run the bio SQL in SUPABASE_SETUP.md.', 'error');
 			const doc = new DOMParser().parseFromString(page, 'text/html');
 			grid.replaceChildren();
 
@@ -611,6 +643,30 @@
 				}
 
 				item.append(pic, title, actions);
+
+				if (bios) {
+					const bio = document.createElement('textarea');
+					bio.className = 'bio-input';
+					bio.maxLength = 500;
+					bio.placeholder = `Write a short bio for ${name.split(' ')[0]}\u2026`;
+					bio.value = bios[name] || '';
+					bio.setAttribute('aria-label', `${name} bio`);
+
+					const status = document.createElement('p');
+					status.className = 'bio-status';
+
+					const save = document.createElement('button');
+					save.className = 'small-btn';
+					save.type = 'button';
+					save.textContent = 'Save bio';
+					save.addEventListener('click', () => saveBio(name, bio.value.trim(), save, status));
+
+					const saveRow = document.createElement('div');
+					saveRow.className = 'headshot-actions';
+					saveRow.appendChild(save);
+
+					item.append(bio, saveRow, status);
+				}
 				grid.appendChild(item);
 			});
 		}
@@ -631,6 +687,22 @@
 			if (oldPath) await db.storage.from(PHOTO_BUCKET).remove([oldPath]);
 			showMessage('headshot-message', `Updated ${name}\u2019s photo.`, 'info');
 			loadHeadshots();
+		}
+
+		// An empty bio deletes the saved one, so the home page shows its default text again.
+		async function saveBio(name, bio, button, status) {
+			button.disabled = true;
+			status.textContent = 'Saving\u2026';
+			const { error } = bio
+				? await db.from('bios').upsert({ name, bio, updated_at: new Date().toISOString() })
+				: await db.from('bios').delete().eq('name', name);
+			button.disabled = false;
+			if (error) {
+				console.error(error);
+				status.textContent = 'Couldn\u2019t save. Try again.';
+				return;
+			}
+			status.textContent = bio ? 'Saved!' : 'Bio cleared.';
 		}
 
 		async function removeHeadshot(name, path) {

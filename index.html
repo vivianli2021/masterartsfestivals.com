@@ -195,15 +195,27 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="supabase-config.js"></script>
   <script>
-    // Headshots uploaded on the Admin Login page replace the photos above.
+    // Headshots and bios saved on the Admin Login page replace the defaults above.
+    const findCard = name => [...document.querySelectorAll('.team-card')]
+      .find(c => c.querySelector('h3').textContent.trim() === name);
+
+    async function loadBios() {
+      if (!db) return;
+      const { data, error } = await db.from('bios').select('name, bio');
+      if (error) return console.error('Could not load bios:', error);
+      data.forEach(({ name, bio }) => {
+        const card = findCard(name);
+        if (card) card.querySelector('p').textContent = bio;
+      });
+    }
+
     async function loadHeadshots() {
       if (!db) return;
       const { data, error } = await db.from('headshots').select('name, path');
       if (error) return console.error('Could not load headshots:', error);
 
-      const cards = [...document.querySelectorAll('.team-card')];
       data.forEach(({ name, path }) => {
-        const card = cards.find(c => c.querySelector('h3').textContent.trim() === name);
+        const card = findCard(name);
         if (!card) return;
         const photo = card.querySelector('.member-photo');
         const img = document.createElement('img');
@@ -215,6 +227,7 @@
     }
 
     loadHeadshots();
+    loadBios();
   </script>
 
 </body>
