@@ -38,7 +38,7 @@
 
     .tier-table {
       width: 100%;
-      min-width: 720px;
+      min-width: 640px;
       border-collapse: collapse;
     }
 
@@ -98,11 +98,10 @@
       white-space: nowrap;
     }
 
-    .bronze   { --tier: #ad714b; }
-    .silver   { --tier: #758391; }
-    .gold     { --tier: #bf8e29; }
-    .platinum { --tier: #4a94c9; }
-    .diamond  { --tier: #4f7191; }
+    .bronze { --tier: #ad714b; }
+    .silver { --tier: #758391; }
+    .gold   { --tier: #bf8e29; }
+    .title  { --tier: #1b6fa4; }
 
     .yes {
       display: inline-grid;
@@ -230,64 +229,56 @@
           <tr>
             <th scope="col" class="benefit">What you get</th>
             <th scope="col" class="bronze"><span class="tier-name">Bronze</span><span class="tier-amount">$250&ndash;$500</span></th>
-            <th scope="col" class="silver"><span class="tier-name">Silver</span><span class="tier-amount">$500&ndash;$1,500</span></th>
-            <th scope="col" class="gold"><span class="tier-name">Gold</span><span class="tier-amount">$1,500&ndash;$2,500</span></th>
-            <th scope="col" class="platinum"><span class="tier-name">Platinum</span><span class="tier-amount">$2,500&ndash;$5,000</span></th>
-            <th scope="col" class="diamond"><span class="tier-name">Diamond</span><span class="tier-amount">$5,000+</span></th>
+            <th scope="col" class="silver"><span class="tier-name">Silver</span><span class="tier-amount">$500&ndash;$1,000</span></th>
+            <th scope="col" class="gold"><span class="tier-name">Gold</span><span class="tier-amount">$1,000&ndash;$1,500</span></th>
+            <th scope="col" class="title"><span class="tier-name">Title Sponsor</span><span class="tier-amount">$1,500+</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" class="benefit">Thank-you on our website and social media</th>
+            <th scope="row" class="benefit">Recognition on our website and social media</th>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="level">Monthly</span></td>
+            <td><span class="level">Every post</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">3D-printed model rocket with your company name inscribed on it</th>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
           </tr>
           <tr>
-            <th scope="row" class="benefit">Hand out your flyers at our community outreach events</th>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <th scope="row" class="benefit">Your name on our team shirt</th>
+            <td><span class="level">Name</span></td>
+            <td><span class="level">Name</span></td>
+            <td><span class="level">Name + logo</span></td>
+            <td><span class="level">Large name + logo</span></td>
           </tr>
           <tr>
-            <th scope="row" class="benefit">Logo on the back of official team shirts</th>
+            <th scope="row" class="benefit">Your name on our high-power rocket</th>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+            <td><span class="level">Name</span></td>
+            <td><span class="level">Name + logo</span></td>
+            <td><span class="level">Large name + logo</span></td>
           </tr>
           <tr>
-            <th scope="row" class="benefit">Logo and brand name on the rocket</th>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="level">Primary</span></td>
-            <td><span class="level">Largest</span></td>
-          </tr>
-          <tr>
-            <th scope="row" class="benefit">Featured on social media, flyers, outreach events, and our homepage</th>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-            <td><span class="yes" aria-label="Included">&#10003;</span></td>
-          </tr>
-          <tr>
-            <th scope="row" class="benefit">Company representative can speak at an outreach event</th>
-            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <th scope="row" class="benefit">Recognition in team presentations and outreach materials</th>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
             <td><span class="yes" aria-label="Included">&#10003;</span></td>
           </tr>
           <tr>
-            <th scope="row" class="benefit">&ldquo;Presented by [Company]&rdquo; on team materials, website, shirts, and social media</th>
+            <th scope="row" class="benefit">&ldquo;Presented by [Company Name]&rdquo; on our website and social media</th>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="no" aria-label="Not included">&ndash;</span></td>
+            <td><span class="yes" aria-label="Included">&#10003;</span></td>
+          </tr>
+          <tr>
+            <th scope="row" class="benefit">Choose the color scheme of our high-power rocket</th>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
             <td><span class="no" aria-label="Not included">&ndash;</span></td>
