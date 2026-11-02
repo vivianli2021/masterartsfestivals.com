@@ -202,6 +202,81 @@
 
 		.delete-btn:hover { background: #b0472a; }
 
+		.manage-sub {
+			margin: -0.6rem 0 1rem;
+			color: var(--ink-soft);
+			font-size: 0.9rem;
+		}
+
+		.headshot-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 0.8rem;
+		}
+
+		.headshot {
+			padding: 1rem 0.8rem;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: #ffffff;
+			text-align: center;
+		}
+
+		.headshot-img {
+			width: 96px;
+			height: 96px;
+			margin: 0 auto 0.7rem;
+			border-radius: 50%;
+			overflow: hidden;
+			border: 1px dashed var(--line);
+			background: var(--bg-soft);
+			display: grid;
+			place-items: center;
+			font-family: 'Sora', sans-serif;
+			font-size: 0.6rem;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--ink-soft);
+		}
+
+		.headshot-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.headshot h3 {
+			font-family: 'Sora', sans-serif;
+			font-size: 0.85rem;
+			color: var(--ink);
+		}
+
+		.headshot-actions {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+			margin-top: 0.7rem;
+		}
+
+		.small-btn {
+			padding: 0.35rem 0.7rem;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: var(--surface);
+			color: var(--teal-deep);
+			font-family: 'Sora', sans-serif;
+			font-size: 0.6rem;
+			font-weight: 600;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+
+		.small-btn:hover { border-color: var(--teal); }
+		.small-btn:disabled { opacity: 0.5; cursor: wait; }
+		.small-btn input { display: none; }
+
 		[hidden] { display: none !important; }
 
 		@media (max-width: 560px) {
@@ -290,6 +365,11 @@
 			<h2 class="manage-title">Gallery Photos</h2>
 			<div class="manage-grid" id="manage-grid"></div>
 			<p class="login-sub" id="manage-empty" hidden>No photos yet.</p>
+
+			<h2 class="manage-title">Team Headshots</h2>
+			<p class="manage-sub">These show on the home page under &ldquo;Meet the Crew.&rdquo;</p>
+			<p class="message" id="headshot-message" hidden></p>
+			<div class="headshot-grid" id="headshot-grid"></div>
 		</section>
 
 	</main>
@@ -318,6 +398,7 @@
 			uploadView.hidden = false;
 			document.getElementById('user-email').textContent = user.email;
 			loadManageGrid();
+			loadHeadshots();
 		}
 
 		function showSignedOut() {
@@ -371,13 +452,13 @@
 		}));
 		dropZone.addEventListener('drop', e => setFiles(e.dataTransfer.files));
 
-		// Shrink big phone photos to at most 2000px wide/tall so the gallery loads fast
-		// and stays inside Supabase's free storage. Falls back to the original file.
-		async function shrink(file) {
+		// Shrink big phone photos (to 2000px for the gallery by default) so pages load fast
+		// and stay inside Supabase's free storage. Falls back to the original file.
+		async function shrink(file, maxSize = 2000) {
 			if (file.type === 'image/gif') return file;
 			try {
 				const bitmap = await createImageBitmap(file);
-				const scale = Math.min(1, 2000 / Math.max(bitmap.width, bitmap.height));
+				const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
 				const canvas = document.createElement('canvas');
 				canvas.width = Math.round(bitmap.width * scale);
 				canvas.height = Math.round(bitmap.height * scale);
@@ -466,6 +547,99 @@
 				item.append(img, label, del);
 				grid.appendChild(item);
 			});
+		}
+
+		/* ---------- Team headshots ---------- */
+
+		// The team list comes from the home page, so adding someone there adds them here.
+		async function loadHeadshots() {
+			const grid = document.getElementById('headshot-grid');
+			const [page, result] = await Promise.all([
+				fetch('index.html').then(r => r.text()),
+				db.from('headshots').select('name, path'),
+			]);
+			if (result.error) {
+				return showMessage('headshot-message', 'Headshots aren\u2019t set up in Supabase yet. Run the headshot SQL in SUPABASE_SETUP.md.', 'error');
+			}
+
+			const saved = Object.fromEntries(result.data.map(h => [h.name, h.path]));
+			const doc = new DOMParser().parseFromString(page, 'text/html');
+			grid.replaceChildren();
+
+			doc.querySelectorAll('.team-card').forEach(card => {
+				const name = card.querySelector('h3').textContent.trim();
+				const defaultImg = card.querySelector('.member-photo img');
+				const current = saved[name] ? photoUrl(saved[name]) : (defaultImg && defaultImg.getAttribute('src'));
+
+				const item = document.createElement('div');
+				item.className = 'headshot';
+
+				const pic = document.createElement('div');
+				pic.className = 'headshot-img';
+				if (current) {
+					const img = document.createElement('img');
+					img.src = current;
+					img.alt = name;
+					pic.appendChild(img);
+				} else {
+					pic.textContent = 'No photo';
+				}
+
+				const title = document.createElement('h3');
+				title.textContent = name;
+
+				const actions = document.createElement('div');
+				actions.className = 'headshot-actions';
+
+				const change = document.createElement('label');
+				change.className = 'small-btn';
+				change.textContent = 'Change photo';
+				const input = document.createElement('input');
+				input.type = 'file';
+				input.accept = 'image/*';
+				input.addEventListener('change', () => input.files[0] && setHeadshot(name, input.files[0], saved[name]));
+				change.appendChild(input);
+				actions.appendChild(change);
+
+				if (saved[name]) {
+					const reset = document.createElement('button');
+					reset.className = 'small-btn';
+					reset.type = 'button';
+					reset.textContent = 'Remove';
+					reset.addEventListener('click', () => removeHeadshot(name, saved[name]));
+					actions.appendChild(reset);
+				}
+
+				item.append(pic, title, actions);
+				grid.appendChild(item);
+			});
+		}
+
+		async function setHeadshot(name, file, oldPath) {
+			showMessage('headshot-message', `Uploading ${name}\u2019s photo\u2026`, 'info');
+			const blob = await shrink(file, 800);
+			const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+			const ext = blob.type === 'image/jpeg' ? 'jpg' : (file.name.split('.').pop() || 'jpg').toLowerCase();
+			const path = `team/${slug}-${Date.now()}.${ext}`;
+
+			const upload = await db.storage.from(PHOTO_BUCKET).upload(path, blob, { contentType: blob.type || file.type });
+			const save = upload.error ? upload : await db.from('headshots').upsert({ name, path, updated_at: new Date().toISOString() });
+			if (upload.error || save.error) {
+				console.error(upload.error || save.error);
+				return showMessage('headshot-message', `Couldn\u2019t update ${name}\u2019s photo.`, 'error');
+			}
+			if (oldPath) await db.storage.from(PHOTO_BUCKET).remove([oldPath]);
+			showMessage('headshot-message', `Updated ${name}\u2019s photo.`, 'info');
+			loadHeadshots();
+		}
+
+		async function removeHeadshot(name, path) {
+			if (!confirm(`Remove ${name}\u2019s uploaded photo?`)) return;
+			const { error } = await db.from('headshots').delete().eq('name', name);
+			if (error) return showMessage('headshot-message', `Couldn\u2019t remove ${name}\u2019s photo.`, 'error');
+			await db.storage.from(PHOTO_BUCKET).remove([path]);
+			showMessage('headshot-message', `Removed ${name}\u2019s uploaded photo.`, 'info');
+			loadHeadshots();
 		}
 	</script>
 

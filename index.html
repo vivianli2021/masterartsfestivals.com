@@ -192,5 +192,30 @@
     <a href="login.html" class="admin-login-btn">Admin Login</a>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    // Headshots uploaded on the Admin Login page replace the photos above.
+    async function loadHeadshots() {
+      if (!db) return;
+      const { data, error } = await db.from('headshots').select('name, path');
+      if (error) return console.error('Could not load headshots:', error);
+
+      const cards = [...document.querySelectorAll('.team-card')];
+      data.forEach(({ name, path }) => {
+        const card = cards.find(c => c.querySelector('h3').textContent.trim() === name);
+        if (!card) return;
+        const photo = card.querySelector('.member-photo');
+        const img = document.createElement('img');
+        img.src = photoUrl(path);
+        img.alt = name;
+        photo.classList.remove('zoomed');
+        photo.replaceChildren(img);
+      });
+    }
+
+    loadHeadshots();
+  </script>
+
 </body>
 </html>

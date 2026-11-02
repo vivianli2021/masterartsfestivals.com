@@ -44,6 +44,29 @@ create policy "Team can delete photo files"
   using (bucket_id = 'photos');
 ```
 
+### Team headshots
+
+Run this too (in a new query) so headshots can be changed from the Admin Login page:
+
+```sql
+create table public.headshots (
+  name text primary key,
+  path text not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.headshots enable row level security;
+
+create policy "Anyone can view headshots"
+  on public.headshots for select using (true);
+create policy "Team can add headshots"
+  on public.headshots for insert to authenticated with check (true);
+create policy "Team can change headshots"
+  on public.headshots for update to authenticated using (true) with check (true);
+create policy "Team can remove headshots"
+  on public.headshots for delete to authenticated using (true);
+```
+
 ## 3. Lock down sign-ups
 
 So that only your team can upload:
@@ -78,3 +101,9 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOi...';
 1. Click **Admin Login** at the bottom of any page and sign in.
 2. Drag in photos, add an optional caption and date, and click **Upload Photos**.
 3. They show up on the Photos page right away. You can delete photos from the same screen.
+
+## Changing team headshots
+
+On the same screen, scroll to **Team Headshots** and click **Change photo** under a teammate.
+The new photo shows on the home page right away. **Remove** goes back to the original photo.
+The team list comes from `index.html`, so a new teammate added there shows up here automatically.
